@@ -239,51 +239,44 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case ST_MACRO_0:
     if (record->event.pressed) {
       SEND_STRING(SS_LCTL(SS_TAP(X_L)) SS_DELAY(100) SS_LSFT(SS_TAP(X_5)) SS_DELAY(100) SS_TAP(X_SPACE));
-
     }
     break;
     case ST_MACRO_1:
     if (record->event.pressed) {
       SEND_STRING(SS_TAP(X_BSLASH) SS_DELAY(100) SS_TAP(X_BSLASH) SS_DELAY(100) SS_TAP(X_S));
-
     }
     break;
     case ST_MACRO_2:
     if (record->event.pressed) {
       SEND_STRING(SS_LSFT(SS_TAP(X_QUOTE)) SS_DELAY(100) SS_LSFT(SS_TAP(X_EQUAL)));
-
     }
     break;
     case ST_MACRO_3:
     if (record->event.pressed) {
       SEND_STRING(SS_LSFT(SS_TAP(X_QUOTE)) SS_DELAY(100) SS_LSFT(SS_TAP(X_EQUAL)) SS_DELAY(100) SS_TAP(X_P));
-
     }
     break;
     case ST_MACRO_4:
     if (record->event.pressed) {
       SEND_STRING(SS_LGUI(SS_TAP(X_L)) SS_DELAY(100) SS_LSFT(SS_TAP(X_5)) SS_DELAY(100) SS_TAP(X_SPACE));
-
     }
     break;
     case ST_MACRO_5:
     if (record->event.pressed) {
       SEND_STRING(SS_TAP(X_BSLASH) SS_DELAY(100) SS_TAP(X_BSLASH) SS_DELAY(100) SS_TAP(X_S));
-
     }
     break;
     case ST_MACRO_6:
     if (record->event.pressed) {
       SEND_STRING(SS_LSFT(SS_TAP(X_QUOTE)) SS_DELAY(100) SS_LSFT(SS_TAP(X_EQUAL)));
-
     }
     break;
     case ST_MACRO_7:
     if (record->event.pressed) {
       SEND_STRING(SS_LSFT(SS_TAP(X_QUOTE)) SS_DELAY(100) SS_LSFT(SS_TAP(X_EQUAL)) SS_DELAY(100) SS_TAP(X_P));
-
     }
     break;
+
     case RGB_SLD:
       if (record->event.pressed) {
         rgblight_mode(1);
@@ -381,4 +374,3 @@ void dance_0_reset(qk_tap_dance_state_t *state, void *user_data) {
 qk_tap_dance_action_t tap_dance_actions[] = {
         [DANCE_0] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_0, dance_0_finished, dance_0_reset),
 };
-
