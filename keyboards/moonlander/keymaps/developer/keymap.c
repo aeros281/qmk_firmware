@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           TG(5),                                          TG(3),          KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLASH,      
     MT(MOD_LCTL, KC_ESCAPE),KC_A,           KC_S,           KC_D,           MT(MOD_LSFT, KC_F),KC_G,           ALL_T(KC_PGDOWN),                                                                MEH_T(KC_PGUP), KC_H,           MT(MOD_RSFT, KC_J),KC_K,           KC_L,           LT(6,KC_SCOLON),MT(MOD_LGUI, KC_QUOTE),
     OSL(2),         KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,                                           KC_N,           KC_M,           KC_COMMA,       KC_DOT,         KC_SLASH,       OSL(2),         
-    TO(7),          LGUI(LSFT(KC_S)),LALT(KC_LSHIFT),LCTL(KC_BSPACE),LT(2,KC_ENTER), TD(DANCE_0),                                                                                                    KC_DELETE,      LT(3,KC_SPACE), TG(6),          KC_LBRACKET,    KC_RBRACKET,    TO(1),          
+    TO(7),          LGUI(LSFT(KC_S)),LALT(KC_LSHIFT),LALT(LCTL(KC_SLASH)),LT(2,KC_ENTER), TD(DANCE_0),                                                                                                    KC_DELETE,      LT(3,KC_SPACE), TG(6),          KC_LBRACKET,    KC_RBRACKET,    TO(1),          
     KC_BSPACE,      CAPS_WORD,      KC_LGUI,                        KC_LCTRL,       LCTL(KC_B),     KC_LALT
   ),
   [1] = LAYOUT_moonlander(
