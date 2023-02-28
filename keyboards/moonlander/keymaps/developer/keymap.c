@@ -73,9 +73,9 @@ enum tap_dance_codes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_moonlander(
-    MT(MOD_LGUI, KC_GRAVE),KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           LCTL(LSFT(KC_TAB)),                                LCTL(KC_TAB),   KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINUS,       
+    MT(MOD_LGUI, KC_GRAVE),KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           DYN_REC_STOP,                                   DYN_REC_START1, KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINUS,       
     KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           TG(5),                                          TG(3),          KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLASH,      
-    MT(MOD_LCTL, KC_ESCAPE),KC_A,           KC_S,           KC_D,           MT(MOD_LSFT, KC_F),KC_G,           ALL_T(KC_PGDOWN),                                                                MEH_T(KC_PGUP), KC_H,           MT(MOD_RSFT, KC_J),KC_K,           KC_L,           LT(6,KC_SCOLON),MT(MOD_LGUI, KC_QUOTE),
+    MT(MOD_LCTL, KC_ESCAPE),KC_A,           KC_S,           KC_D,           MT(MOD_LSFT, KC_F),KC_G,           KC_HYPR,                                                                        MEH_T(KC_PGUP), KC_H,           MT(MOD_RSFT, KC_J),KC_K,           KC_L,           LT(6,KC_SCOLON),MT(MOD_LGUI, KC_QUOTE),
     TD(DANCE_0),    KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,                                           KC_N,           KC_M,           KC_COMMA,       KC_DOT,         KC_SLASH,       TD(DANCE_3),    
     TD(DANCE_1),    KC_LCTRL,       KC_LGUI,        KC_LALT,        LT(2,KC_ENTER), TD(DANCE_2),                                                                                                    KC_DELETE,      LT(3,KC_SPACE), TG(6),          LALT(LCTL(KC_SLASH)),LGUI(LSFT(KC_S)),TO(1),          
     KC_BSPACE,      CAPS_WORD,      KC_LGUI,                        KC_LCTRL,       LCTL(KC_B),     MT(MOD_LALT, KC_ENTER)
@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 TG(4),          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     MT(MOD_LGUI, KC_ESCAPE),KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, MT(MOD_LALT, KC_QUOTE),
     TD(DANCE_4),    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, TD(DANCE_5),    
-    KC_TRANSPARENT, KC_LCTRL,       KC_LALT,        KC_LGUI,        KC_TRANSPARENT, LALT(KC_TAB),                                                                                                   KC_TRANSPARENT, LT(4,KC_SPACE), KC_TRANSPARENT, LALT(KC_SLASH), KC_TRANSPARENT, TO(0),          
+    KC_TRANSPARENT, KC_LCTRL,       KC_LALT,        KC_LGUI,        KC_TRANSPARENT, LALT(KC_TAB),                                                                                                   KC_TRANSPARENT, LT(4,KC_SPACE), KC_TRANSPARENT, LCTL(KC_SLASH), KC_TRANSPARENT, TO(0),          
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                 KC_TRANSPARENT, KC_TRANSPARENT, MT(MOD_LCTL, KC_ENTER)
   ),
   [2] = LAYOUT_moonlander(
