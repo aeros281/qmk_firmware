@@ -7,22 +7,10 @@
 #define HOME_D MT(MOD_LCTL, KC_D)
 #define HOME_F LSFT_T(KC_F)
 
-// #define HOME_J LSFT_T(KC_J)
 #define HOME_K MT(MOD_LCTL, KC_K)
 #define HOME_L MT(MOD_LALT, KC_L)
 #define HOME_SCLN MT(MOD_LGUI, KC_SCLN)
-
-// #define HOME_A KC_A
-// #define HOME_S KC_S
-// #define HOME_D KC_D
-// #define HOME_F KC_F
-// #define HOME_F LSFT_T(KC_F)
-
-// #define HOME_J KC_J
 #define HOME_J LSFT_T(KC_J)
-// #define HOME_K KC_K
-// #define HOME_L KC_L
-// #define HOME_SCLN KC_SCLN
 
 #define M_SPACE LT(_RAISE, KC_SPC)
 #define M_BSPACE LT(_LOWER, KC_BSPC)
@@ -36,6 +24,50 @@ bool is_alt_tab_active = false;
 uint16_t alt_tab_timer = 0;
 bool is_se_swap_active = true;
 bool is_win = true;
+
+/** Combo section **/
+enum combo_events {
+    VIM_SAVE,
+    VIM_QUIT,
+    TMUX_PANE_SWITCH,
+    VIM_MOTION,
+};
+const uint16_t PROGMEM switch_tmux_pane_combo[] = {KC_1, KC_2, COMBO_END};
+const uint16_t PROGMEM vim_save_combo[] = {KC_TAB, KC_Q, COMBO_END};
+const uint16_t PROGMEM vim_quit_combo[] = {KC_GRV, KC_1, COMBO_END};
+const uint16_t PROGMEM vim_motion_combo[] = {KC_COMM, KC_DOT, COMBO_END};
+combo_t key_combos[] = {
+    [TMUX_PANE_SWITCH] = COMBO_ACTION(switch_tmux_pane_combo),
+    [VIM_SAVE] = COMBO_ACTION(vim_save_combo),
+    [VIM_QUIT] = COMBO_ACTION(vim_quit_combo),
+    [VIM_MOTION] = COMBO_ACTION(vim_motion_combo),
+};
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+    switch(combo_index) {
+        case VIM_SAVE:
+            if (pressed){
+                SEND_STRING(":w\n");
+            }
+            break;
+        case VIM_QUIT:
+            if (pressed) {
+                SEND_STRING(":q\n");
+            }
+            break;
+        case TMUX_PANE_SWITCH:
+            if (pressed) {
+                SEND_STRING(SS_LCTL(SS_TAP(X_B)) SS_TAP(X_Q));
+            }
+            break;
+        case VIM_MOTION:
+            if (pressed) {
+                SEND_STRING(SS_TAP(X_BSLS) SS_DELAY(100) SS_TAP(X_BSLS) SS_DELAY(100) SS_TAP(X_S));
+            }
+            break;
+    }
+}
+/** End of combo section **/
 
 enum sofle_layers {
     /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
@@ -67,6 +99,7 @@ enum custom_keycodes {
     KC_SWAP_ENTER,
     KC_SWAP_SE,
     KC_SWAP_WINMAC,
+    KC_EDGE, // Search tab in edge
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -90,14 +123,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GRV,                 KC_1,       KC_2,    KC_3,    KC_4,    KC_5,                                   KC_6,    KC_7,    KC_8,    KC_9,    KC_0,        KC_MINS,
   KC_TAB,                 KC_Q,       KC_W,    KC_E,    KC_R,    KC_T,                                   KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,        KC_BSPC,
   MT(MOD_LCTL, KC_ESC),   HOME_A,     HOME_S,  HOME_D,  HOME_F,  KC_G,                                   M_HYPR,  HOME_J,  HOME_K,  HOME_L,  HOME_SCLN,   KC_QUOT,
-  KC_LSFT,                M_MOUSE_Z,  KC_X,    KC_C,    KC_V,    KC_B,      KC_MTASK,           KC_TGUK, KC_N,    KC_M,    KC_COMM, KC_DOT,  HOME_SLASH,  KC_RSFT,
+  A(KC_TAB),              M_MOUSE_Z,  KC_X,    KC_C,    KC_V,    KC_B,      KC_MTASK,           KC_TGUK, KC_N,    KC_M,    KC_COMM, KC_DOT,  HOME_SLASH,  KC_RSFT,
                            KC_LCTL, KC_LGUI, KC_LALT,  M_MEH,        M_BSPACE,                      M_SPACE,  M_ADJUST, KC_RALT, KC_RGUI, KC_RCTL
 ),
 [_MAC] = LAYOUT(
   _______,                 _______,       _______,    _______,    _______,    _______,                                   _______,    _______,    _______,    _______,    _______,        _______,
   _______,                 _______,       _______,    _______,    _______,    _______,                                   _______,    _______,    _______,    _______,    _______,        _______,
   MT(MOD_LGUI, KC_ESC),    _______,       _______,    _______,    _______,    _______,                                   _______,    _______,    _______,    _______,    _______,        _______,
-  _______,                 _______,       _______,    _______,    _______,    _______,      _______,           _______,    _______,    _______,    _______,    _______,    _______,        _______,
+  G(KC_TAB),               _______,       _______,    _______,    _______,    _______,      _______,           _______,  _______,    _______,    _______,    _______,    _______,        G(KC_GRV),
                              KC_LCTL, KC_LALT, KC_LGUI, _______,        _______,                                      _______,  _______, KC_RGUI, KC_RALT, KC_RCTL
 ),
 
@@ -162,15 +195,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT(
   XXXXXXX , XXXXXXX,  XXXXXXX ,  XXXXXXX , XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX , XXXXXXX,  KC_QWERTY, XXXXXXX,  XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX , XXXXXXX,KC_SWAP_WINMAC, XXXXXXX,    KC_TGUK,  XXXXXXX,                     XXXXXXX, KC_PRVTAB, KC_MTASK, KC_NXTTAB, XXXXXXX, XXXXXXX,
+  XXXXXXX , XXXXXXX,KC_SWAP_WINMAC, XXXXXXX,    KC_TGUK,  XXXXXXX,                     XXXXXXX, KC_PRVTAB, KC_EDGE, KC_NXTTAB, XXXXXXX, XXXXXXX,
   XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,  XXXXXXX, XXXXXXX,     KC_SWAP_SE, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, KC_VIMSEARCH, XXXXXXX,
                    _______, _______, _______, _______, _______,     _______, _______, _______, _______, QK_BOOT
 ),
 
-/* MOUSE
- * ,-----------------------------------------.                    ,-----------------------------------------.
- * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+/* MOUSE ,-----------------------------------------.                    ,-----------------------------------------. |      |      |      |      |      |      |                    |      |      |      |      |      |      | |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | RESET|      |QWERTY|COLMAK|      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      |      |MACWIN|      | LANG |      |-------.    ,-------|      | TAB | MTASK  | TAB  |      |      |
@@ -599,6 +629,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING(SS_TAP(X_BSLS) SS_DELAY(100) SS_TAP(X_BSLS) SS_DELAY(100) SS_TAP(X_S));
             }
             return false;
+        case KC_EDGE:
+            if (!is_win) {
+                if (record->event.pressed) {
+                    register_mods(mod_config(MOD_LGUI));
+                    register_mods(mod_config(MOD_LSFT));
+                    register_code(KC_A);
+                } else {
+                    unregister_mods(mod_config(MOD_LGUI));
+                    unregister_mods(mod_config(MOD_LSFT));
+                    unregister_code(KC_A);
+                }
+            } else {
+                if (record->event.pressed) {
+                    register_mods(mod_config(MOD_LCTL));
+                    register_mods(mod_config(MOD_LSFT));
+                    register_code(KC_A);
+                } else {
+                    unregister_mods(mod_config(MOD_LCTL));
+                    unregister_mods(mod_config(MOD_LSFT));
+                    unregister_code(KC_A);
+                }
+            }
+            return false;
     }
     return true;
 }
@@ -627,9 +680,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (clockwise) {
-            tap_code_delay(KC_VOLU, 100);
+            tap_code(KC_VOLU);
         } else {
-            tap_code_delay(KC_VOLD, 100);
+            tap_code(KC_VOLD);
         }
     } else if (index == 1) {
         if (clockwise) {
