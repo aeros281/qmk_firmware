@@ -20,6 +20,8 @@
 #define M_MEH MEH_T(KC_ENT)
 #define M_MOUSE_Z LT(_MOUSE, KC_Z)
 
+#define KC_MOPTION G(KC_F1)
+
 bool is_alt_tab_active = false;
 uint16_t alt_tab_timer = 0;
 bool is_se_swap_active = true;
@@ -171,7 +173,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            `----------------------------------'           '------''---------------------------'
  */
 [_RAISE] = LAYOUT(
-  _______, _______ , _______ , _______ , _______ , _______,                           _______,  _______  , _______,  _______ ,  _______ ,_______,
+  KC_MOPTION, _______ , _______ , _______ , _______ , _______,                           _______,  _______  , _______,  _______ ,  _______ ,_______,
   KC_MTASK,  KC_INS,  KC_PSCR,   KC_APP,  XXXXXXX, CW_TOGG,                        KC_PGUP, KC_PRVWD,   KC_UP, KC_NXTWD,KC_DLINE, KC_BSPC,
   _______, KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT, KC_VIMSEARCH,                       KC_PGDN,  KC_LEFT, KC_DOWN, KC_RGHT,  KC_DEL, KC_BSPC,
   _______,KC_UNDO, KC_CUT, KC_COPY, KC_PASTE, KC_CAPS, _______,       _______,  KC_BSPC, KC_LSTRT, XXXXXXX, KC_LEND,   XXXXXXX, _______,
@@ -213,8 +215,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_MOUSE] = LAYOUT(
   XXXXXXX , XXXXXXX,  XXXXXXX ,  XXXXXXX , XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX , KC_LGUI,  KC_LALT,   KC_LCTL,  KC_LSFT, XXXXXXX,                     XXXXXXX, XXXXXXX, KC_MS_U, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX , XXXXXXX,CG_TOGG, XXXXXXX,    KC_TGUK,  XXXXXXX,                     XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, XXXXXXX,
+  XXXXXXX , KC_LGUI,  KC_LALT,   KC_LCTL,  KC_LSFT, XXXXXXX,                     KC_WH_U, XXXXXXX, KC_MS_U, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX , XXXXXXX,CG_TOGG, XXXXXXX,    KC_TGUK,  XXXXXXX,                     KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, XXXXXXX,
   XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,  XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                    _______, _______, _______, _______, _______,     KC_BTN1, KC_BTN2, KC_BTN3, _______, _______
   )
