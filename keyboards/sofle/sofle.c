@@ -66,32 +66,34 @@ static void render_logo(void) {
 
 void print_status_narrow(void) {
     oled_write_P(PSTR("\n\n"), false);
-    switch (get_highest_layer(layer_state)) {
-        case 0:
-            oled_write_ln_P(PSTR("Qwrt"), false);
-            break;
-        case 1:
-            oled_write_ln_P(PSTR("Clmk"), false);
-            break;
-        default:
-            oled_write_P(PSTR("Mod\n"), false);
-            break;
-    }
-    oled_write_P(PSTR("\n\n"), false);
     oled_write_ln_P(PSTR("LAYER"), false);
-    switch (get_highest_layer(layer_state)) {
+    int highest_layer = get_highest_layer(layer_state);
+    oled_write_ln(get_u16_str(highest_layer, ' '), false);
+    switch (highest_layer) {
         case 0:
+            oled_write_P(PSTR("Win\n"), false);
+            break;
         case 1:
-            oled_write_P(PSTR("Base\n"), false);
+            oled_write_P(PSTR("MacOS\n"), false);
             break;
         case 2:
-            oled_write_P(PSTR("Raise"), false);
+        case 4:
+            oled_write_P(PSTR("Raise\n"), false);
             break;
         case 3:
-            oled_write_P(PSTR("Lower"), false);
+            oled_write_P(PSTR("Lower\n"), false);
+            break;
+        case 5:
+            oled_write_P(PSTR("Mouse\n"), false);
+            break;
+        case 6:
+            oled_write_P(PSTR("Macros\n"), false);
+            break;
+        case 7:
+            oled_write_P(PSTR("System\n"), false);
             break;
         default:
-            oled_write_ln_P(PSTR("Undef"), false);
+            oled_write_ln_P(PSTR("Undef: "), false);
     }
     oled_write_P(PSTR("\n\n"), false);
     led_t led_usb_state = host_keyboard_led_state();
